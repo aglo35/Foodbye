@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.foodbye" >
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,11 +20,22 @@
         </activity>
         <activity
             android:name=".DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_display_message">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.foodbye.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SearchRecipesActivity"
+            android:label="@string/title_search_recipes_activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.foodbye.MainActivity" />
+        </activity>
+        <!-- Single List Item Activity -->
+        <activity
+            android:label="Recipe"
+            android:name="com.foodbye.SingleRecipeActivity" >
         </activity>
     </application>
 
