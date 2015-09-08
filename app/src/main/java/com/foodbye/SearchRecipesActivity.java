@@ -33,12 +33,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String TAG_TITLE = "title";
     private static final String TAG_SOCIAL_RANK = "social_rank";
 
-    // contacts JSONArray
-    JSONArray recipes;
-
-    // Hashmap for ListView
-    ArrayList<HashMap<String, String>> recipeList;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,26 +56,20 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                         .getText().toString();
 
                 // Starting single contact activity
-                Intent in = new Intent(getApplicationContext(),
+                Intent intent = new Intent(getApplicationContext(),
                         SingleRecipeActivity.class);
-                in.putExtra(TAG_TITLE, title);
-                in.putExtra(TAG_SOCIAL_RANK, social_rank);
-                startActivity(in);
+                intent.putExtra(TAG_TITLE, title);
+                intent.putExtra(TAG_SOCIAL_RANK, social_rank);
+                startActivity(intent);
             }
         });
 
-        // Get the message from the intent
+        // Get the query from the intent
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.EXTRA_QUERY);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
         progressBar.setVisibility(View.VISIBLE);
-
-        if (recipeList != null && !recipeList.isEmpty()) {
-            recipeList.clear();
-        }
-        recipeList = new ArrayList<>();
 
         class RetrieveFeedTask extends AsyncTask<String, Void, String> {
 
@@ -89,18 +77,17 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
 
             private final ProgressBar progressBar;
-            private final ArrayList<HashMap<String, String>> recipeList;
+            private ArrayList<HashMap<String, String>> recipeList;
             private JSONArray recipes;
 
-            public RetrieveFeedTask(JSONArray recipes, ArrayList<HashMap<String, String>> recipeList, ProgressBar progressBar) {
-                this.recipes = recipes;
-                this.recipeList = recipeList;
+            public RetrieveFeedTask(ProgressBar progressBar) {
                 this.progressBar = progressBar;
             }
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                recipeList = new ArrayList<>();
             }
 
             @Override
@@ -142,14 +129,14 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                         // Getting JSON Array node
                         recipes = jsonObj.getJSONArray(TAG_RECIPES);
 
-                        // looping through All Contacts
+                        // looping through all recipes
                         for (int i = 0; i < recipes.length(); i++) {
                             JSONObject c = recipes.getJSONObject(i);
 
                             String title = c.getString(TAG_TITLE);
                             String socialRank = c.getString(TAG_SOCIAL_RANK);
 
-                            // tmp hashmap for single contact
+                            // tmp hashmap for single recipe
                             HashMap<String, String> recipe = new HashMap<>();
 
                             // adding each child node to HashMap key => value
@@ -168,9 +155,8 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             @Override
             protected void onPostExecute(String response) {
                 progressBar.setVisibility(View.GONE);
-                /**
-                 * Updating parsed JSON data into ListView
-                 * */
+
+                // Updating parsed JSON data into ListView
                 ListAdapter adapter = new SimpleAdapter(
                         SearchRecipesActivity.this, recipeList,
                         R.layout.list_item, new String[] { TAG_TITLE, TAG_SOCIAL_RANK },
@@ -181,7 +167,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             }
         }
 
-        RetrieveFeedTask retrieveFeedTask = new RetrieveFeedTask(recipes, recipeList, progressBar);
+        RetrieveFeedTask retrieveFeedTask = new RetrieveFeedTask(progressBar);
         retrieveFeedTask.execute(query);
     }
 
