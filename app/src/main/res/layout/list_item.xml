@@ -27,4 +27,10 @@
         android:paddingBottom="2dip"
         android:textColor="#acacac" />
 
+    <!-- Recipe ID label -->
+    <TextView
+        android:id="@+id/recipe_id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

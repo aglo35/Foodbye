@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+/**
+ * Class currently not in use. Keeping for template purposes.
+ */
 public class DisplayMessageActivity extends AppCompatActivity {
 
     @Override

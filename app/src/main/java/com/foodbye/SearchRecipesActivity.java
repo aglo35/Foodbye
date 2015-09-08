@@ -26,12 +26,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * Main class communicating with Food2Fork SEARCH API
+ */
 public class SearchRecipesActivity extends ListActivity implements View.OnClickListener {
 
     private static final String TAG_RECIPES = "recipes";
     private static final String TAG_TITLE = "title";
     private static final String TAG_SOCIAL_RANK = "social_rank";
+    private static final String TAG_RECIPE_ID = "recipe_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +57,17 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                         .getText().toString();
                 String social_rank = ((TextView) view.findViewById(R.id.social_rank))
                         .getText().toString();
+                String recipe_id = ((TextView) view.findViewById(R.id.recipe_id))
+                        .getText().toString();
 
-                // Starting single contact activity
+                // Starting single recipe activity
                 Intent intent = new Intent(getApplicationContext(),
                         SingleRecipeActivity.class);
+
                 intent.putExtra(TAG_TITLE, title);
                 intent.putExtra(TAG_SOCIAL_RANK, social_rank);
+                intent.putExtra(TAG_RECIPE_ID, recipe_id);
+
                 startActivity(intent);
             }
         });
@@ -135,6 +143,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
 
                             String title = c.getString(TAG_TITLE);
                             String socialRank = c.getString(TAG_SOCIAL_RANK);
+                            String recipe_id = c.getString(TAG_RECIPE_ID);
 
                             // tmp hashmap for single recipe
                             HashMap<String, String> recipe = new HashMap<>();
@@ -142,6 +151,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             // adding each child node to HashMap key => value
                             recipe.put(TAG_TITLE, title);
                             recipe.put(TAG_SOCIAL_RANK, socialRank);
+                            recipe.put(TAG_RECIPE_ID, "Recipe Id (For testing): " + recipe_id);
 
                             // adding recipe to recipe list
                             recipeList.add(recipe);
@@ -159,9 +169,10 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 // Updating parsed JSON data into ListView
                 ListAdapter adapter = new SimpleAdapter(
                         SearchRecipesActivity.this, recipeList,
-                        R.layout.list_item, new String[] { TAG_TITLE, TAG_SOCIAL_RANK },
+                        R.layout.list_item, new String[] { TAG_TITLE, TAG_SOCIAL_RANK, TAG_RECIPE_ID },
                         new int[] { R.id.recipe_title,
-                                R.id.social_rank });
+                                R.id.social_rank,
+                                R.id.recipe_id });
 
                 setListAdapter(adapter);
             }
