@@ -4,7 +4,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -79,7 +78,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        class RetrieveFeedTask extends AsyncTask<String, Void, String> {
+        class SearchRecipesTask extends AsyncTask<String, Void, String> {
 
             private static final String API_URL = "http://food2fork.com/api/search";
             private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
@@ -88,7 +87,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             private ArrayList<HashMap<String, String>> recipeList;
             private JSONArray recipes;
 
-            public RetrieveFeedTask(ProgressBar progressBar) {
+            public SearchRecipesTask(ProgressBar progressBar) {
                 this.progressBar = progressBar;
             }
 
@@ -124,7 +123,8 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                     }
                 }
                 catch(Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
+                    // TODO: Proper error handling.
+                    e.printStackTrace();
                     return null;
                 }
             }
@@ -145,6 +145,10 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             String socialRank = c.getString(TAG_SOCIAL_RANK);
                             String recipe_id = c.getString(TAG_RECIPE_ID);
 
+                            // Get recipe ingredients
+                            GetRecipeTask getRecipeTask = new GetRecipeTask();
+                            getRecipeTask.execute(recipe_id);
+
                             // tmp hashmap for single recipe
                             HashMap<String, String> recipe = new HashMap<>();
 
@@ -157,6 +161,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             recipeList.add(recipe);
                         }
                     } catch (JSONException e) {
+                        // TODO: Proper error handling.
                         e.printStackTrace();
                     }
                 }
@@ -178,8 +183,8 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             }
         }
 
-        RetrieveFeedTask retrieveFeedTask = new RetrieveFeedTask(progressBar);
-        retrieveFeedTask.execute(query);
+        SearchRecipesTask searchRecipesTask = new SearchRecipesTask(progressBar);
+        searchRecipesTask.execute(query);
     }
 
     @Override
