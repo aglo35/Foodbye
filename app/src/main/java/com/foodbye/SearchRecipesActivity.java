@@ -8,11 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.foodbye.model.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Main class communicating with Food2Fork SEARCH API
+ * Main class communicating with Food2Fork API
  */
 public class SearchRecipesActivity extends ListActivity implements View.OnClickListener {
 
@@ -34,6 +35,10 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String TAG_TITLE = "title";
     private static final String TAG_SOCIAL_RANK = "social_rank";
     private static final String TAG_RECIPE_ID = "recipe_id";
+    private static final String TAG_INGREDIENTS = "ingredients";
+    private static final String TAG_RECIPE = "recipe";
+
+    private ArrayList<Recipe> recipes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,27 +79,34 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         // Get the query from the intent
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.EXTRA_QUERY);
+        recipes = intent.getParcelableArrayListExtra(MainActivity.EXTRA_RECIPE_LIST);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
         class SearchRecipesTask extends AsyncTask<String, Void, String> {
 
-            private static final String API_URL = "http://food2fork.com/api/search";
+            private static final String API_URL_SEARCH = "http://food2fork.com/api/search";
             private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
+            private static final String API_URL_GET = "http://food2fork.com/api/get";
+
+            private static final int MAX_RECIPES = 5;
 
             private final ProgressBar progressBar;
+            private ArrayList<Recipe> recipes;
             private ArrayList<HashMap<String, String>> recipeList;
-            private JSONArray recipes;
+            private JSONArray recipesArray;
 
-            public SearchRecipesTask(ProgressBar progressBar) {
+            public SearchRecipesTask(ProgressBar progressBar, ArrayList<Recipe> recipes) {
                 this.progressBar = progressBar;
+                this.recipes = recipes;
             }
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 recipeList = new ArrayList<>();
+                recipes = new ArrayList<>();
             }
 
             @Override
@@ -102,7 +114,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 String query = params[0];
 
                 try {
-                    URL url = new URL(API_URL + "?key=" + API_KEY + "&q=" + query);
+                    URL url = new URL(API_URL_SEARCH + "?key=" + API_KEY + "&q=" + query);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -114,7 +126,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                         bufferedReader.close();
                         String response = stringBuilder.toString();
 
-                        parseResponseToJSON(response);
+                        parseResponseFromSearchCall(response);
 
                         return response;
                     }
@@ -129,25 +141,21 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 }
             }
 
-            private void parseResponseToJSON(String response) {
+            private void parseResponseFromSearchCall(String response) {
                 if (response != null) {
                     try {
                         JSONObject jsonObj = new JSONObject(response);
 
                         // Getting JSON Array node
-                        recipes = jsonObj.getJSONArray(TAG_RECIPES);
+                        recipesArray = jsonObj.getJSONArray(TAG_RECIPES);
 
                         // looping through all recipes
-                        for (int i = 0; i < recipes.length(); i++) {
-                            JSONObject c = recipes.getJSONObject(i);
+                        for (int i = 0; i < MAX_RECIPES; i++) {
+                            JSONObject c = recipesArray.getJSONObject(i);
 
                             String title = c.getString(TAG_TITLE);
                             String socialRank = c.getString(TAG_SOCIAL_RANK);
-                            String recipe_id = c.getString(TAG_RECIPE_ID);
-
-                            // Get recipe ingredients
-                            GetRecipeTask getRecipeTask = new GetRecipeTask();
-                            getRecipeTask.execute(recipe_id);
+                            String recipeId = c.getString(TAG_RECIPE_ID);
 
                             // tmp hashmap for single recipe
                             HashMap<String, String> recipe = new HashMap<>();
@@ -155,10 +163,72 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             // adding each child node to HashMap key => value
                             recipe.put(TAG_TITLE, title);
                             recipe.put(TAG_SOCIAL_RANK, socialRank);
-                            recipe.put(TAG_RECIPE_ID, "Recipe Id (For testing): " + recipe_id);
+                            recipe.put(TAG_RECIPE_ID, "Recipe Id (For testing): " + recipeId);
+
+                            Recipe newRecipe = new Recipe();
+
+                            newRecipe.setRecipe_id(recipeId);
+                            newRecipe.setRecipe_title(title);
+                            newRecipe.setSocial_rank(socialRank);
+
+                            // Get recipe ingredients
+                            getRecipeIngredients(recipeId, newRecipe);
+
+                            recipes.add(newRecipe);
 
                             // adding recipe to recipe list
                             recipeList.add(recipe);
+                        }
+                    } catch (JSONException e) {
+                        // TODO: Proper error handling.
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            private void getRecipeIngredients(String recipeId, Recipe recipe) {
+
+                try {
+                    URL url = new URL(API_URL_GET + "?key=" + API_KEY + "&rId=" + recipeId);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    try {
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            stringBuilder.append(line).append("\n");
+                        }
+                        bufferedReader.close();
+                        String response = stringBuilder.toString();
+
+                        parseResponseFromGetCall(response, recipe.getIngredients());
+                    }
+                    finally{
+                        urlConnection.disconnect();
+                    }
+                }
+                catch(Exception e) {
+                    // TODO: Proper error handling.
+                    e.printStackTrace();
+                }
+            }
+
+            private void parseResponseFromGetCall(String response, ArrayList<String> ingredients) {
+
+                if (response != null) {
+                    try {
+                        JSONObject jsonObj = new JSONObject(response);
+
+                        // Getting JSON Array node
+                        JSONObject recipe = jsonObj.getJSONObject(TAG_RECIPE);
+
+                        JSONArray ingredientsJSON = recipe.getJSONArray(TAG_INGREDIENTS);
+
+                        // looping through all recipes
+                        for (int i = 0; i < ingredientsJSON.length(); i++) {
+                            String ingredient = String.valueOf(ingredientsJSON.get(i));
+
+                            ingredients.add(ingredient);
                         }
                     } catch (JSONException e) {
                         // TODO: Proper error handling.
@@ -172,7 +242,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 progressBar.setVisibility(View.GONE);
 
                 // Updating parsed JSON data into ListView
-                ListAdapter adapter = new SimpleAdapter(
+                SimpleAdapter adapter = new SimpleAdapter(
                         SearchRecipesActivity.this, recipeList,
                         R.layout.list_item, new String[] { TAG_TITLE, TAG_SOCIAL_RANK, TAG_RECIPE_ID },
                         new int[] { R.id.recipe_title,
@@ -180,10 +250,11 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                                 R.id.recipe_id });
 
                 setListAdapter(adapter);
+
             }
         }
 
-        SearchRecipesTask searchRecipesTask = new SearchRecipesTask(progressBar);
+        SearchRecipesTask searchRecipesTask = new SearchRecipesTask(progressBar, recipes);
         searchRecipesTask.execute(query);
     }
 

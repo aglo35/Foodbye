@@ -8,15 +8,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.foodbye.model.Recipe;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.foodbye.MESSAGE";
     public static final String EXTRA_QUERY = "com.foodbye.QUERY";
+    public static final String EXTRA_RECIPE_LIST = "com.foodbye.RECIPE_LIST";
+
+    private ArrayList<Recipe> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize new list when activity is made for the first time.
+        recipes = new ArrayList<>();
     }
 
     @Override
@@ -41,21 +51,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Called when the user clicks the Send button */
-//    public void sendMessage(View view) {
-//        Intent intent = new Intent(this, DisplayMessageActivity.class);
-//        EditText editText = (EditText) findViewById(R.id.edit_message);
-//        String message = editText.getText().toString();
-//        intent.putExtra(EXTRA_MESSAGE, message);
-//        startActivity(intent);
-//    }
-
     /** Called when the user clicks the Search button */
     public void searchRecipe(View view) {
         Intent intent = new Intent(this, SearchRecipesActivity.class);
         EditText editText = (EditText) findViewById(R.id.search_text);
         String query = editText.getText().toString();
         intent.putExtra(EXTRA_QUERY, query);
+        intent.putParcelableArrayListExtra(EXTRA_RECIPE_LIST, recipes);
         startActivity(intent);
     }
 }
