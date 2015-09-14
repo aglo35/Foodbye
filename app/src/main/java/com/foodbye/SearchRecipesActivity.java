@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.foodbye.model.Recipe;
 
@@ -24,7 +20,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Main class communicating with Food2Fork API
@@ -38,7 +33,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String TAG_INGREDIENTS = "ingredients";
     private static final String TAG_RECIPE = "recipe";
 
-    private ArrayList<Recipe> recipes;
+    //    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,38 +43,39 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         Button searchButton = (Button) findViewById(R.id.search_api_button);
         searchButton.setOnClickListener(this);
 
-        ListView listView = getListView();
+//        listView = getListView();
+
 
         // Listview on item click listener
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // getting values from selected ListItem
-                String title = ((TextView) view.findViewById(R.id.recipe_title))
-                        .getText().toString();
-                String social_rank = ((TextView) view.findViewById(R.id.social_rank))
-                        .getText().toString();
-                String recipe_id = ((TextView) view.findViewById(R.id.recipe_id))
-                        .getText().toString();
-
-                // Starting single recipe activity
-                Intent intent = new Intent(getApplicationContext(),
-                        SingleRecipeActivity.class);
-
-                intent.putExtra(TAG_TITLE, title);
-                intent.putExtra(TAG_SOCIAL_RANK, social_rank);
-                intent.putExtra(TAG_RECIPE_ID, recipe_id);
-
-                startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                // getting values from selected ListItem
+//                String title = ((TextView) view.findViewById(R.id.recipe_title))
+//                        .getText().toString();
+//                String social_rank = ((TextView) view.findViewById(R.id.social_rank))
+//                        .getText().toString();
+//                String recipe_id = ((TextView) view.findViewById(R.id.recipe_id))
+//                        .getText().toString();
+//
+//                // Starting single recipe activity
+//                Intent intent = new Intent(getApplicationContext(),
+//                        SingleRecipeActivity.class);
+//
+//                intent.putExtra(TAG_TITLE, title);
+//                intent.putExtra(TAG_SOCIAL_RANK, social_rank);
+//                intent.putExtra(TAG_RECIPE_ID, recipe_id);
+//
+//                startActivity(intent);
+//            }
+//        });
 
         // Get the query from the intent
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.EXTRA_QUERY);
-        recipes = intent.getParcelableArrayListExtra(MainActivity.EXTRA_RECIPE_LIST);
+        ArrayList<Recipe> recipes = intent.getParcelableArrayListExtra(MainActivity.EXTRA_RECIPE_LIST);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -94,7 +90,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
 
             private final ProgressBar progressBar;
             private ArrayList<Recipe> recipes;
-            private ArrayList<HashMap<String, String>> recipeList;
             private JSONArray recipesArray;
 
             public SearchRecipesTask(ProgressBar progressBar, ArrayList<Recipe> recipes) {
@@ -105,7 +100,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                recipeList = new ArrayList<>();
                 recipes = new ArrayList<>();
             }
 
@@ -157,14 +151,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             String socialRank = c.getString(TAG_SOCIAL_RANK);
                             String recipeId = c.getString(TAG_RECIPE_ID);
 
-                            // tmp hashmap for single recipe
-                            HashMap<String, String> recipe = new HashMap<>();
-
-                            // adding each child node to HashMap key => value
-                            recipe.put(TAG_TITLE, title);
-                            recipe.put(TAG_SOCIAL_RANK, socialRank);
-                            recipe.put(TAG_RECIPE_ID, "Recipe Id (For testing): " + recipeId);
-
                             Recipe newRecipe = new Recipe();
 
                             newRecipe.setRecipe_id(recipeId);
@@ -175,9 +161,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             getRecipeIngredients(recipeId, newRecipe);
 
                             recipes.add(newRecipe);
-
-                            // adding recipe to recipe list
-                            recipeList.add(recipe);
                         }
                     } catch (JSONException e) {
                         // TODO: Proper error handling.
@@ -201,7 +184,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                         bufferedReader.close();
                         String response = stringBuilder.toString();
 
-                        parseResponseFromGetCall(response, recipe.getIngredients());
+                        recipe.setIngredients(parseResponseFromGetCall(response));
                     }
                     finally{
                         urlConnection.disconnect();
@@ -213,7 +196,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 }
             }
 
-            private void parseResponseFromGetCall(String response, ArrayList<String> ingredients) {
+            private ArrayList<String> parseResponseFromGetCall(String response) {
 
                 if (response != null) {
                     try {
@@ -224,17 +207,22 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
 
                         JSONArray ingredientsJSON = recipe.getJSONArray(TAG_INGREDIENTS);
 
+                        ArrayList<String> ingredients = new ArrayList<>();
+
                         // looping through all recipes
                         for (int i = 0; i < ingredientsJSON.length(); i++) {
                             String ingredient = String.valueOf(ingredientsJSON.get(i));
 
                             ingredients.add(ingredient);
                         }
+
+                        return ingredients;
                     } catch (JSONException e) {
                         // TODO: Proper error handling.
                         e.printStackTrace();
                     }
                 }
+                return null;
             }
 
             @Override
@@ -242,15 +230,8 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 progressBar.setVisibility(View.GONE);
 
                 // Updating parsed JSON data into ListView
-                SimpleAdapter adapter = new SimpleAdapter(
-                        SearchRecipesActivity.this, recipeList,
-                        R.layout.list_item, new String[] { TAG_TITLE, TAG_SOCIAL_RANK, TAG_RECIPE_ID },
-                        new int[] { R.id.recipe_title,
-                                R.id.social_rank,
-                                R.id.recipe_id });
-
+                RecipeArrayAdapter adapter = new RecipeArrayAdapter(SearchRecipesActivity.this, recipes);
                 setListAdapter(adapter);
-
             }
         }
 

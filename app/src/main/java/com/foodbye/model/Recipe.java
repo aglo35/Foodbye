@@ -19,8 +19,9 @@ public class Recipe implements Parcelable {
 
     private String social_rank;
 
-    public ArrayList<String> getIngredients() {
-        return ingredients;
+    // TODO: Better layout for ingredients (consider overriding toString()).
+    public String getIngredients() {
+        return ingredients.toString();
     }
 
     public void setIngredients(ArrayList<String> ingredients) {
