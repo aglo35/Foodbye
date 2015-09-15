@@ -227,11 +227,11 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
 
             @Override
             protected void onPostExecute(String response) {
-                progressBar.setVisibility(View.GONE);
-
                 // Updating parsed JSON data into ListView
                 RecipeArrayAdapter adapter = new RecipeArrayAdapter(SearchRecipesActivity.this, recipes);
                 setListAdapter(adapter);
+
+                progressBar.setVisibility(View.GONE);
             }
         }
 

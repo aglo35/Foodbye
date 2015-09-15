@@ -32,7 +32,7 @@ public class RecipeArrayAdapter extends ArrayAdapter<Recipe> {
         // Populate the data into the template view using the data object
         recipe_title.setText(recipe.getRecipe_title());
         social_rank.setText(recipe.getSocial_rank());
-        ingredients.setText(recipe.getIngredients());
+        ingredients.setText(recipe.getIngredientsForDisplay());
         // Return the completed view to render on screen
         return convertView;
     }
