@@ -78,9 +78,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putParcelableArrayListExtra(EXTRA_RECIPE_LIST, recipes);
         startActivity(intent);
     }
-
-    public void initialLogin(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 }
