@@ -37,10 +37,6 @@
             android:label="Recipe"
             android:name="com.hill.variety.SingleRecipeActivity" >
         </activity>
-        <activity
-            android:label="Login"
-            android:name="com.hill.variety.LoginActivity" >
-        </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
