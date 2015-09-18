@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.hill.variety.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,20 +23,25 @@
             android:label="@string/title_activity_display_message">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.foodbye.MainActivity" />
+                android:value="com.hill.variety.MainActivity" />
         </activity>
         <activity
-            android:name=".SearchRecipesActivity"
+            android:name="com.hill.variety.SearchRecipesActivity"
             android:label="@string/title_search_recipes_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.foodbye.MainActivity" />
+                android:value="com.hill.variety.MainActivity" />
         </activity>
         <!-- Single List Item Activity -->
         <activity
             android:label="Recipe"
-            android:name="com.foodbye.SingleRecipeActivity" >
+            android:name="com.hill.variety.SingleRecipeActivity" >
         </activity>
+        <activity
+            android:label="Login"
+            android:name="com.hill.variety.LoginActivity" >
+        </activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

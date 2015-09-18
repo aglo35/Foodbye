@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.hill.variety.MainActivity;
+
 /**
  * Class currently not in use. Keeping for template purposes.
  */

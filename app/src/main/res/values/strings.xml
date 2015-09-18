@@ -6,8 +6,10 @@
     <string name="button_send">Send</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_search_recipes_activity">Search Recipe</string>
+    <string name="facebook_app_id">495019934009322</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="button_search">Search</string>
     <string name="enter_ingredients">Enter ingredients</string>
+    <string name="test_login">Login (temporary btn)</string>
 </resources>

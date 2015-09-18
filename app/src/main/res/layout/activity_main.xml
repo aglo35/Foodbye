@@ -21,6 +21,18 @@
             android:id="@+id/search_api_button" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_login"
+            android:onClick="initialLogin"
+            android:id="@+id/test_login_button" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,8 +52,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true" />
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
     </RelativeLayout>
 
 </LinearLayout>
