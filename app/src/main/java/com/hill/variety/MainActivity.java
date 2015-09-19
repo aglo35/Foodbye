@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.variety.MESSAGE";
     public static final String EXTRA_QUERY = "com.variety.QUERY";
     public static final String EXTRA_RECIPE_LIST = "com.variety.RECIPE_LIST";
+    private static final String GUEST_LOGIN = "com.variety.GUEST_LOGIN";
 
     private ArrayList<Recipe> recipes;
 
@@ -43,7 +43,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String guest_login = intent.getStringExtra(MainActivity.GUEST_LOGIN);
+            if (GUEST_LOGIN.equals(guest_login)) {
+                setContentView(R.layout.activity_main);
+            } else {
+                setContentView(R.layout.login);
+            }
+        }
 
         // Initialize new list when activity is made for the first time.
         recipes = new ArrayList<>();
@@ -78,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
         String query = editText.getText().toString();
         intent.putExtra(EXTRA_QUERY, query);
         intent.putParcelableArrayListExtra(EXTRA_RECIPE_LIST, recipes);
+        startActivity(intent);
+    }
+
+    public void guestLogin(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(GUEST_LOGIN, GUEST_LOGIN);
         startActivity(intent);
     }
 }
