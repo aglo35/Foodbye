@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.foodbye.R;
+import com.variety.R;
 
 public class SingleRecipeActivity extends Activity {
 

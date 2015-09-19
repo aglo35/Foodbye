@@ -8,8 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.foodbye.R;
+import com.variety.R;
 import com.hill.variety.model.Recipe;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         // Initialize new list when activity is made for the first time.

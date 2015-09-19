@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.foodbye.R;
+import com.variety.R;
 import com.hill.variety.model.Recipe;
 
 import org.json.JSONArray;

@@ -21,17 +21,16 @@
             android:id="@+id/search_api_button" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/test_login"
-            android:onClick="initialLogin"
-            android:id="@+id/test_login_button" />
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

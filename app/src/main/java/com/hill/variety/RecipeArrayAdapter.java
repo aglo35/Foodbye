@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.foodbye.R;
+import com.variety.R;
 import com.hill.variety.model.Recipe;
 
 import java.util.ArrayList;
