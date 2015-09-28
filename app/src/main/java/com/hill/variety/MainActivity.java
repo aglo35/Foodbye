@@ -1,19 +1,34 @@
 package com.hill.variety;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.variety.R;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.hill.variety.model.Note;
 import com.hill.variety.model.Recipe;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.variety.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String GUEST_LOGIN = "com.variety.GUEST_LOGIN";
 
     private ArrayList<Recipe> recipes;
+
+    private List<Note> posts;
+
+    CallbackManager callbackManager;
 
     @Override
     protected void onResume() {
@@ -44,6 +63,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "com.variety",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                String hash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+
+//        }
+
         Intent intent = getIntent();
         if (intent != null) {
             String guest_login = intent.getStringExtra(MainActivity.GUEST_LOGIN);
@@ -51,11 +86,78 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_main);
             } else {
                 setContentView(R.layout.login);
+                setFacebookLoginCallbackManager();
+
+//                posts = new ArrayList<>();
+//
+//                ArrayAdapter<Note> adapter = new ArrayAdapter<Note>(this, R.layout.list_item, posts);
+//
+//                ListView myList = (ListView) findViewById(android.R.id.list);
+//                myList.setAdapter(adapter);
+//
+//                refreshPostList();
             }
         }
 
         // Initialize new list when activity is made for the first time.
         recipes = new ArrayList<>();
+    }
+
+    private void refreshPostList() {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
+
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> postList, ParseException e) {
+
+                if (e == null) {
+                    // If there are results, update the list of posts
+                    // and notify the adapter
+                    posts.clear();
+                    for (ParseObject post : postList) {
+                        Note note = new Note(post.getObjectId(), post.getString("title"), post.getString("content"));
+                        posts.add(note);
+                    }
+                    ListView myList = (ListView) findViewById(android.R.id.list);
+
+                    ((ArrayAdapter<Note>) myList.getAdapter()).notifyDataSetChanged();
+                } else {
+                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void setFacebookLoginCallbackManager() {
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+//                        setContentView(R.layout.activity_main);
+                        // App code
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
