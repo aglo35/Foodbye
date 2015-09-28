@@ -16,6 +16,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.hill.variety.model.Recipe;
+import com.parse.ParseUser;
 import com.variety.R;
 
 import java.util.ArrayList;
@@ -51,44 +52,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "com.variety",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                String hash = Base64.encodeToString(md.digest(), Base64.DEFAULT);
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//
-//        } catch (NoSuchAlgorithmException e) {
-
-//        }
-
         Intent intent = getIntent();
         if (intent != null) {
             String guest_login = intent.getStringExtra(MainActivity.GUEST_LOGIN);
             if (GUEST_LOGIN.equals(guest_login)) {
                 setContentView(R.layout.activity_main);
             } else {
-                setContentView(R.layout.login);
-                setFacebookLoginCallbackManager();
+//                setFacebookLoginCallbackManager();
+                setContentView(R.layout.activity_main);
 
-//                posts = new ArrayList<>();
-//
-//                ArrayAdapter<Note> adapter = new ArrayAdapter<Note>(this, R.layout.list_item, posts);
-//
-//                ListView myList = (ListView) findViewById(android.R.id.list);
-//                myList.setAdapter(adapter);
-//
-//                refreshPostList();
+                //        Check if user is logged in
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser == null) {
+                    loadLoginView();
+                }
             }
         }
 
         // Initialize new list when activity is made for the first time.
         recipes = new ArrayList<>();
+    }
+
+    private void loadLoginView() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void setFacebookLoginCallbackManager() {
@@ -139,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_logout) {
+            ParseUser.logOut();
+            loadLoginView();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -152,9 +147,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void guestLogin(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(GUEST_LOGIN, GUEST_LOGIN);
-        startActivity(intent);
-    }
 }
