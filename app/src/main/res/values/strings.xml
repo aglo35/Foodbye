@@ -21,4 +21,5 @@
     <string name="keep_logged_in">keep_logged_in</string>
     <string name="password">password</string>
     <string name="login_email">login_email</string>
+    <string name="mainLogo">mainLogo</string>
 </resources>

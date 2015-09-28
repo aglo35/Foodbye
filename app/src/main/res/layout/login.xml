@@ -6,25 +6,18 @@
     android:weightSum="1">
 
     <ImageView
-        android:layout_width="766dp"
+        android:layout_width="match_parent"
         android:layout_height="104dp"
         android:id="@+id/imageView"
         android:src="@drawable/foodbye_logo_flat_small"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/mainLogo" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/relativeLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="36dp">
+        android:layout_height="wrap_content">
 
             <EditText
                 android:layout_width="wrap_content"
@@ -45,7 +38,8 @@
                 android:layout_alignLeft="@+id/email"
                 android:layout_alignStart="@+id/email"
                 android:layout_alignRight="@+id/email"
-                android:layout_alignEnd="@+id/email" />
+                android:layout_alignEnd="@+id/email"
+                android:inputType="textPassword" />
 
             <CheckBox
                 android:layout_width="wrap_content"
@@ -61,44 +55,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/relativeLayout"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_marginBottom="29dp">
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/continue_as_guest"
-                android:id="@+id/button2"
-                android:layout_below="@+id/login_button"
-                android:layout_alignLeft="@+id/login_button"
-                android:layout_alignStart="@+id/login_button"
-                android:layout_alignRight="@+id/login_button"
-                android:layout_alignEnd="@+id/login_button"
-                android:onClick="guestLogin"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/forgot_password"
-                android:id="@+id/textView"
-                android:clickable="true"
-                android:layout_below="@+id/login_button"
-                android:layout_alignRight="@+id/login_button"
-                android:layout_alignEnd="@+id/login_button"
-                android:layout_marginTop="32dp"
-                android:contextClickable="true" />
         </RelativeLayout>
-    </RelativeLayout>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/continue_as_guest"
+        android:id="@+id/button2"
+        android:onClick="guestLogin"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/forgot_password"
+        android:id="@+id/textView"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
