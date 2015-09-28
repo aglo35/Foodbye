@@ -3,13 +3,10 @@ package com.hill.variety;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -18,16 +15,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.hill.variety.model.Note;
 import com.hill.variety.model.Recipe;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.variety.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String GUEST_LOGIN = "com.variety.GUEST_LOGIN";
 
     private ArrayList<Recipe> recipes;
-
-    private List<Note> posts;
 
     CallbackManager callbackManager;
 
@@ -100,34 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize new list when activity is made for the first time.
         recipes = new ArrayList<>();
-    }
-
-    private void refreshPostList() {
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
-
-
-        query.findInBackground(new FindCallback<ParseObject>() {
-
-            @Override
-            public void done(List<ParseObject> postList, ParseException e) {
-
-                if (e == null) {
-                    // If there are results, update the list of posts
-                    // and notify the adapter
-                    posts.clear();
-                    for (ParseObject post : postList) {
-                        Note note = new Note(post.getObjectId(), post.getString("title"), post.getString("content"));
-                        posts.add(note);
-                    }
-                    ListView myList = (ListView) findViewById(android.R.id.list);
-
-                    ((ArrayAdapter<Note>) myList.getAdapter()).notifyDataSetChanged();
-                } else {
-                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
-                }
-            }
-        });
     }
 
     private void setFacebookLoginCallbackManager() {

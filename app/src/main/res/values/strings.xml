@@ -11,18 +11,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="button_search">Search</string>
     <string name="enter_ingredients">Enter ingredients</string>
-<<<<<<< HEAD
-    <string name="test_login">Login (temporary btn)</string>
-    <string name="continue_as_guest">Guest log in</string>
-    <string name="action_refresh">Refresh</string>
-    <string name="action_new">New Note</string>
-    <string name="forgot_password">forgot_password</string>
-    <string name="facebook_sign_in_logo">facebook_sign_in_logo</string>
-    <string name="sign_in_button">sign_in_button</string>
-    <string name="keep_logged_in">keep_logged_in</string>
-    <string name="password">password</string>
-    <string name="login_email">login_email</string>
-=======
+    <string name="mainLogo">mainLogo</string>
 
 
     <!-- START OF initial login screen elements -->
@@ -34,7 +23,7 @@
     <string name="sign_in_button">Sign in</string>
     <string name="keep_logged_in">Keep me logged in</string>
     <string name="forgot_password">Forgot your password?</string>
+    <string name="sign_up_button">Sign Up</string>
     <!-- END OF initial login screen elements -->
 
->>>>>>> master
 </resources>
