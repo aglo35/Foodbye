@@ -37,6 +37,11 @@
             android:label="Login"
             android:name="com.hill.variety.LoginActivity" >
         </activity>
+        <!--Sign Up Activity-->
+        <activity
+            android:label="Sign Up"
+            android:name="com.hill.variety.SignUpActivity" >
+        </activity>
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

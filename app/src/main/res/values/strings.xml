@@ -23,6 +23,7 @@
     <string name="sign_in_button">Sign in</string>
     <string name="keep_logged_in">Keep me logged in</string>
     <string name="forgot_password">Forgot your password?</string>
+    <string name="sign_up_button">Sign Up</string>
     <!-- END OF initial login screen elements -->
 
 </resources>
