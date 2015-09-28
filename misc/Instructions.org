@@ -1,2 +1,3 @@
 * Keystore password
 password : KavalAnts21 = "ga0RGNYHvNM5d0SLGQfpQWAPGJ8="
+* Test
