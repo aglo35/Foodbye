@@ -38,7 +38,7 @@
                 android:id="@+id/emailField"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:hint="@string/login_email" />
+                android:hint="@string/hint_username" />
 
             <EditText
                 android:layout_width="wrap_content"
