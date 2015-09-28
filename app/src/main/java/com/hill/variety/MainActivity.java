@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFacebookLoginCallbackManager() {
         callbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton = (LoginButton) findViewById(R.id.facebookLoginButton);
         loginButton.registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
