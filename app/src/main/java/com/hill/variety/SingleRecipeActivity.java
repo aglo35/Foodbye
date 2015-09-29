@@ -7,15 +7,11 @@ import android.widget.TextView;
 
 import com.variety.R;
 
-
 public class SingleRecipeActivity extends Activity {
 
     private static final String TAG_TITLE = "title";
     private static final String TAG_SOCIAL_RANK = "social_rank";
     private static final String TAG_RECIPE_ID = "recipe_id";
-    private static final String TAG_INGREDIENTS = "ingredients";
-    private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
-    private static final String API_URL_GET = "http://food2fork.com/api/get";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +36,4 @@ public class SingleRecipeActivity extends Activity {
         lblSocialRank.setText(socialRank);
         lblRecipeId.setText(recipeId);
     }
-
-
 }
