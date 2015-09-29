@@ -4,9 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -54,17 +52,12 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
 
         listView = getListView();
 
-        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                new String[] {"Searching"}));
-
         // Listview on item click listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                Log.i(TAG_RECIPE_ID, TAG_TITLE);
 
                 // Starting single recipe activity
                 Intent intent = new Intent(getApplicationContext(),
@@ -75,8 +68,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 intent.putExtra(TAG_RECIPE_ID, String.valueOf((TextView) view.findViewById(R.id.recipe_id)));
 
                 startActivity(intent);
-
-
             }
         });
 
