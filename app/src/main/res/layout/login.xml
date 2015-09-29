@@ -6,19 +6,29 @@
     android:weightSum="1"
     tools:context=".LoginActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="104dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/foodbye_logo_flat_small"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
-        android:contentDescription="@string/mainLogo" />
+        android:layout_weight="0.40">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/Foodbye_logo_flat_stroke_480_x_320"
+            android:src="@drawable/foodbye_logo_flat_stroke_480_x_320"
+            android:layout_gravity="center"
+            android:contentDescription="@string/mainLogo"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05">
 
             <EditText
                 android:layout_width="wrap_content"
@@ -46,56 +56,71 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/keep_logged_in"
-                android:id="@+id/checkBox"
+                android:id="@+id/KeepLoggedIn"
                 android:layout_below="@+id/passwordField"
                 android:layout_alignLeft="@+id/passwordField"
                 android:layout_alignStart="@+id/passwordField" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.52">
+
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout"
-            android:layout_marginBottom="29dp">
+            android:text="@string/sign_in_button"
+            android:id="@+id/loginButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/continueAsGuest"
+            android:layout_alignStart="@+id/continueAsGuest"
+            android:layout_alignRight="@+id/continueAsGuest"
+            android:layout_alignEnd="@+id/continueAsGuest" />
 
-        </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_as_guest"
+            android:id="@+id/continueAsGuest"
+            android:onClick="guestLogin"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/signupButton"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_in_button"
-        android:id="@+id/loginButton"
-        android:layout_gravity="center_horizontal" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebookLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/continueAsGuest"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_up_button"
-        android:id="@+id/signupButton"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_button"
+            android:id="@+id/signupButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/loginButton"
+            android:layout_alignLeft="@+id/loginButton"
+            android:layout_alignStart="@+id/loginButton"
+            android:layout_alignRight="@+id/continueAsGuest"
+            android:layout_alignEnd="@+id/continueAsGuest" />
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/continue_as_guest"
-        android:id="@+id/button2"
-        android:onClick="guestLogin"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/forgot_password"
-        android:id="@+id/textView"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/forgot_password"
+            android:id="@+id/forgotPassword"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/facebookLoginButton"
+            android:layout_alignStart="@+id/facebookLoginButton" />
+    </RelativeLayout>
 
 </LinearLayout>
