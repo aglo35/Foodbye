@@ -27,10 +27,12 @@ public class RecipeArrayAdapter extends ArrayAdapter<Recipe> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_recipe, parent, false);
         }
         // Lookup view for data population
+        //TextView recipe_id = (TextView) convertView.findViewById(R.id.recipe_id);
         TextView recipe_title = (TextView) convertView.findViewById(R.id.recipe_title);
         TextView social_rank = (TextView) convertView.findViewById(R.id.social_rank);
         TextView ingredients = (TextView) convertView.findViewById(R.id.ingredients);
         // Populate the data into the template view using the data object
+        //recipe_id.setText(recipe.getRecipe_id());
         recipe_title.setText(recipe.getRecipe_title());
         social_rank.setText(recipe.getSocial_rank());
         ingredients.setText(recipe.getIngredientsForDisplay());
