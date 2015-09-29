@@ -36,5 +36,4 @@ public class SingleRecipeActivity extends Activity {
         lblSocialRank.setText(socialRank);
         lblRecipeId.setText(recipeId);
     }
-
 }

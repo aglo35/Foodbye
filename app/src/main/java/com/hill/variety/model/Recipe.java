@@ -46,9 +46,7 @@ public class Recipe implements Parcelable {
         this.recipe_id = recipe_id;
     }
 
-    public String getRecipe_title() {
-        return recipe_title;
-    }
+    public String getRecipe_title() { return recipe_title; }
 
     public void setRecipe_title(String recipe_title) {
         this.recipe_title = recipe_title;
