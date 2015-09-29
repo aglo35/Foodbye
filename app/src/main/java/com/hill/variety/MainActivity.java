@@ -1,17 +1,23 @@
 package com.hill.variety;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.variety.R;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.hill.variety.model.Recipe;
+import com.parse.ParseUser;
+import com.variety.R;
 
 import java.util.ArrayList;
 
@@ -22,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String GUEST_LOGIN = "com.variety.GUEST_LOGIN";
 
     private ArrayList<Recipe> recipes;
+
+    CallbackManager callbackManager;
 
     @Override
     protected void onResume() {
@@ -50,12 +58,55 @@ public class MainActivity extends AppCompatActivity {
             if (GUEST_LOGIN.equals(guest_login)) {
                 setContentView(R.layout.activity_main);
             } else {
-                setContentView(R.layout.login);
+//                setFacebookLoginCallbackManager();
+                setContentView(R.layout.activity_main);
+
+                //        Check if user is logged in
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if (currentUser == null) {
+                    loadLoginView();
+                }
             }
         }
 
         // Initialize new list when activity is made for the first time.
         recipes = new ArrayList<>();
+    }
+
+    private void loadLoginView() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void setFacebookLoginCallbackManager() {
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+//                        setContentView(R.layout.activity_main);
+                        // App code
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -77,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_logout) {
+            ParseUser.logOut();
+            loadLoginView();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -90,9 +147,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void guestLogin(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(GUEST_LOGIN, GUEST_LOGIN);
-        startActivity(intent);
-    }
 }

@@ -3,8 +3,10 @@
     package="com.variety" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="com.hill.variety.FoodByeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,6 +32,25 @@
             android:label="Recipe"
             android:name="com.hill.variety.SingleRecipeActivity" >
         </activity>
+        <!--Login Activity-->
+        <activity
+            android:label="Login"
+            android:name="com.hill.variety.LoginActivity" >
+        </activity>
+        <!--Sign Up Activity-->
+        <activity
+            android:label="Sign Up"
+            android:name="com.hill.variety.SignUpActivity" >
+            <!--Set parent activity to LoginActivity-->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hill.variety.LoginActivity" />
+        </activity>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
