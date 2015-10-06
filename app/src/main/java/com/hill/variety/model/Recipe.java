@@ -19,6 +19,8 @@ public class Recipe implements Parcelable {
 
     private String social_rank;
 
+    private String recipeImgUrl;
+
     public ArrayList<String> getIngredients() {
         return ingredients;
     }
@@ -58,6 +60,14 @@ public class Recipe implements Parcelable {
 
     public void setSocial_rank(String social_rank) {
         this.social_rank = social_rank;
+    }
+
+    public String getRecipeImgUrl() {
+        return recipeImgUrl;
+    }
+
+    public void setRecipeImgUrl(String recipeImgUrl) {
+        this.recipeImgUrl = recipeImgUrl;
     }
 
     /* This section must be added in order for Parcable to work. */
