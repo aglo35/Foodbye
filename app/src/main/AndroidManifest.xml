@@ -35,7 +35,8 @@
         <!--Login Activity-->
         <activity
             android:label="Login"
-            android:name="com.hill.variety.LoginActivity" >
+            android:name="com.hill.variety.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <!--Sign Up Activity-->
         <activity

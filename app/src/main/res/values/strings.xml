@@ -40,5 +40,6 @@
     <string name="cooking_time">Cook time</string>
     <string name="servings">Servings</string>
     <string name="kcal">Kcal</string>
+    <string name="recipe_img">Recipe Image</string>
     <!-- END OF single item view elements -->
 </resources>
