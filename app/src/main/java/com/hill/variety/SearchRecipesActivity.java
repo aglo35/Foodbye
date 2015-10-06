@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.variety.R;
 import com.hill.variety.model.Recipe;
@@ -33,8 +35,11 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String TAG_RECIPE_ID = "recipe_id";
     private static final String TAG_INGREDIENTS = "ingredients";
     private static final String TAG_RECIPE = "recipe";
+    private static final String API_URL_SEARCH = "http://food2fork.com/api/search";
+    private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
+    private static final String API_URL_GET = "http://food2fork.com/api/get";
 
-    //    private ListView listView;
+    private ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,34 +49,26 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         Button searchButton = (Button) findViewById(R.id.search_api_button);
         searchButton.setOnClickListener(this);
 
-//        listView = getListView();
-
+        listView = getListView();
 
         // Listview on item click listener
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                // getting values from selected ListItem
-//                String title = ((TextView) view.findViewById(R.id.recipe_title))
-//                        .getText().toString();
-//                String social_rank = ((TextView) view.findViewById(R.id.social_rank))
-//                        .getText().toString();
-//                String recipe_id = ((TextView) view.findViewById(R.id.recipe_id))
-//                        .getText().toString();
-//
-//                // Starting single recipe activity
-//                Intent intent = new Intent(getApplicationContext(),
-//                        SingleRecipeActivity.class);
-//
-//                intent.putExtra(TAG_TITLE, title);
-//                intent.putExtra(TAG_SOCIAL_RANK, social_rank);
-//                intent.putExtra(TAG_RECIPE_ID, recipe_id);
-//
-//                startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // Starting single recipe activity
+                Intent intent = new Intent(getApplicationContext(),
+                        SingleRecipeActivity.class);
+
+                intent.putExtra(TAG_TITLE, String.valueOf(findViewById(R.id.recipe_title)));
+                intent.putExtra(TAG_SOCIAL_RANK, String.valueOf(findViewById(R.id.social_rank)));
+                intent.putExtra(TAG_RECIPE_ID, String.valueOf(findViewById(R.id.recipeId)));
+
+                startActivity(intent);
+            }
+        });
 
         // Get the query from the intent
         Intent intent = getIntent();
@@ -83,9 +80,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
 
         class SearchRecipesTask extends AsyncTask<String, Void, String> {
 
-            private static final String API_URL_SEARCH = "http://food2fork.com/api/search";
-            private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
-            private static final String API_URL_GET = "http://food2fork.com/api/get";
+
 
             private static final int MAX_RECIPES = 5;
 
