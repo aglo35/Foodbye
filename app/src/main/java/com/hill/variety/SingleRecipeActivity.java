@@ -28,12 +28,12 @@ public class SingleRecipeActivity extends Activity {
         String recipeId = in.getStringExtra(TAG_RECIPE_ID);
 
         // Displaying all values on the screen
-        TextView lblTitle = (TextView) findViewById(R.id.recipe_title);
-        TextView lblSocialRank = (TextView) findViewById(R.id.social_rank);
-        TextView lblRecipeId = (TextView) findViewById(R.id.recipeId);
-
-        lblTitle.setText(title);
-        lblSocialRank.setText(socialRank);
-        lblRecipeId.setText(recipeId);
+//        TextView lblTitle = (TextView) findViewById(R.id.recipe_title);
+//        TextView lblSocialRank = (TextView) findViewById(R.id.social_rank);
+//        TextView lblRecipeId = (TextView) findViewById(R.id.recipeId);
+//
+//        lblTitle.setText(title);
+//        lblSocialRank.setText(socialRank);
+//        lblRecipeId.setText(recipeId);
     }
 }
