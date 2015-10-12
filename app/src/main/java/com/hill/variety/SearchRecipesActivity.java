@@ -35,7 +35,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String TAG_RECIPE_ID = "recipe_id";
     private static final String TAG_INGREDIENTS = "ingredients";
     private static final String TAG_RECIPE = "recipe";
-    private static final String TAG_RECIPE_URL = "image_url";
+    private static final String TAG_RECIPE_IMG_URL = "image_url";
     private static final String API_URL_SEARCH = "http://food2fork.com/api/search";
     private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
     private static final String API_URL_GET = "http://food2fork.com/api/get";
@@ -59,13 +59,16 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                Recipe recipe = (Recipe) parent.getAdapter().getItem(position);
+
                 // Starting single recipe activity
                 Intent intent = new Intent(getApplicationContext(),
                         SingleRecipeActivity.class);
 
-                intent.putExtra(TAG_TITLE, String.valueOf(findViewById(R.id.recipe_title)));
-                intent.putExtra(TAG_SOCIAL_RANK, String.valueOf(findViewById(R.id.social_rank)));
-                intent.putExtra(TAG_RECIPE_ID, String.valueOf(findViewById(R.id.recipeId)));
+                intent.putExtra(TAG_TITLE, recipe.getRecipe_title());
+                intent.putExtra(TAG_SOCIAL_RANK, recipe.getSocial_rank());
+                intent.putExtra(TAG_RECIPE_ID, recipe.getRecipe_id());
+                intent.putExtra(TAG_RECIPE_IMG_URL, recipe.getRecipeImgUrl());
 
                 startActivity(intent);
             }
@@ -147,7 +150,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             String title = c.getString(TAG_TITLE);
                             String socialRank = c.getString(TAG_SOCIAL_RANK);
                             String recipeId = c.getString(TAG_RECIPE_ID);
-                            String recipeImgUrl = c.getString(TAG_RECIPE_URL);
+                            String recipeImgUrl = c.getString(TAG_RECIPE_IMG_URL);
 
                             Recipe newRecipe = new Recipe();
 
