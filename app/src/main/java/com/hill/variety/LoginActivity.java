@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = getUserPassword();
 
                 if (username.isEmpty() || password.isEmpty()) {
-                    throwNoEmailOrPasswordError();
+                    showNoEmailOrPasswordMessage();
                 }
                 else {
 //                    setSupportProgressBarIndeterminateVisibility(true);
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void throwNoEmailOrPasswordError () {
+    public void showNoEmailOrPasswordMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setMessage(R.string.login_error_message)
                 .setTitle(R.string.login_error_title)
