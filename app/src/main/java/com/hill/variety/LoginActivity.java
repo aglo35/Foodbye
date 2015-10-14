@@ -51,19 +51,12 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
 
-                username = username.trim();
-                password = password.trim();
+                String username = getUserName();
+                String password = getUserPassword();
 
                 if (username.isEmpty() || password.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage(R.string.login_error_message)
-                            .setTitle(R.string.login_error_title)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    throwNoEmailOrPasswordError();
                 }
                 else {
 //                    setSupportProgressBarIndeterminateVisibility(true);
@@ -115,5 +108,26 @@ public class LoginActivity extends AppCompatActivity {
     public void guestLogin(View view) {
         Intent intent = new Intent(LoginActivity.this, SearchRecipesActivity.class);
         startActivity(intent);
+    }
+
+    public void throwNoEmailOrPasswordError () {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setMessage(R.string.login_error_message)
+                .setTitle(R.string.login_error_title)
+                .setPositiveButton(android.R.string.ok, null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public String getUserName() {
+        String username = usernameEditText.getText().toString();
+        username = username.trim();
+        return username;
+    }
+
+    public String getUserPassword() {
+        String password = passwordEditText.getText().toString();
+        password = password.trim();
+        return password;
     }
 }

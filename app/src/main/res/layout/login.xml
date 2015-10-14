@@ -74,10 +74,10 @@
             android:id="@+id/loginButton"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/continueAsGuest"
-            android:layout_alignStart="@+id/continueAsGuest"
-            android:layout_alignRight="@+id/continueAsGuest"
-            android:layout_alignEnd="@+id/continueAsGuest" />
+            android:layout_alignLeft="@+id/facebookLoginButton"
+            android:layout_alignStart="@+id/facebookLoginButton"
+            android:layout_alignRight="@+id/facebookLoginButton"
+            android:layout_alignEnd="@+id/facebookLoginButton" />
 
         <Button
             android:layout_width="wrap_content"
@@ -87,7 +87,10 @@
             android:onClick="guestLogin"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/signupButton"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignLeft="@+id/facebookLoginButton"
+            android:layout_alignStart="@+id/facebookLoginButton"
+            android:layout_alignRight="@+id/facebookLoginButton"
+            android:layout_alignEnd="@+id/facebookLoginButton" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebookLoginButton"
@@ -106,8 +109,8 @@
             android:layout_below="@+id/loginButton"
             android:layout_alignLeft="@+id/loginButton"
             android:layout_alignStart="@+id/loginButton"
-            android:layout_alignRight="@+id/continueAsGuest"
-            android:layout_alignEnd="@+id/continueAsGuest" />
+            android:layout_alignRight="@+id/loginButton"
+            android:layout_alignEnd="@+id/loginButton" />
 
         <TextView
             android:layout_width="wrap_content"
