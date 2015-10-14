@@ -129,27 +129,30 @@
 
         </RelativeLayout>
 
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/relativeLayout"
-            android:layout_toEndOf="@+id/relativeLayout"
-            android:src="@drawable/foodbye_logo_flat_stroke_480_x_320" />
+        android:id="@+id/recipe_img"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/relativeLayout"
+        android:layout_toEndOf="@+id/relativeLayout"
+        android:src="@drawable/foodbye_logo_flat_stroke_480_x_320" />
 
-    </RelativeLayout>
+</RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="5">
+
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="5">
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listView" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+</LinearLayout>
 
 </LinearLayout>
