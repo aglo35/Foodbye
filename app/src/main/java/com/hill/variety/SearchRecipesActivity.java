@@ -58,19 +58,8 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                Recipe recipe = (Recipe) parent.getAdapter().getItem(position);
-
                 // Starting single recipe activity
-                Intent intent = new Intent(getApplicationContext(),
-                        SingleRecipeActivity.class);
-
-                intent.putExtra(TAG_TITLE, recipe.getRecipe_title());
-                intent.putExtra(TAG_SOCIAL_RANK, recipe.getSocial_rank());
-                intent.putExtra(TAG_RECIPE_ID, recipe.getRecipe_id());
-                intent.putExtra(TAG_RECIPE_IMG_URL, recipe.getRecipeImgUrl());
-
-                startActivity(intent);
+                startSingleRecipeActivity();
             }
         });
 
@@ -83,8 +72,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         progressBar.setVisibility(View.VISIBLE);
 
         class SearchRecipesTask extends AsyncTask<String, Void, String> {
-
-
 
             private static final int MAX_RECIPES = 5;
 
@@ -247,6 +234,17 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         EditText editText = (EditText) findViewById(R.id.search_text);
         String query = editText.getText().toString();
         intent.putExtra(MainActivity.EXTRA_QUERY, query);
+        startActivity(intent);
+    }
+
+    public void startSingleRecipeActivity() {
+        Intent intent = new Intent(getApplicationContext(),
+                SingleRecipeActivity.class);
+
+        intent.putExtra(TAG_TITLE, String.valueOf(findViewById(R.id.recipe_title)));
+        intent.putExtra(TAG_SOCIAL_RANK, String.valueOf(findViewById(R.id.social_rank)));
+        intent.putExtra(TAG_RECIPE_ID, String.valueOf(findViewById(R.id.recipeId)));
+
         startActivity(intent);
     }
 }
