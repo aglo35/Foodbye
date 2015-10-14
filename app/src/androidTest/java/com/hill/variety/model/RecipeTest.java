@@ -9,7 +9,6 @@ public class RecipeTest extends TestCase {
 
     public void testGetIngredientsForDisplay() throws Exception {
         Recipe recipe = new Recipe();
-        assertNotNull(recipe);
         assertTrue(recipe != null);
     }
 }
