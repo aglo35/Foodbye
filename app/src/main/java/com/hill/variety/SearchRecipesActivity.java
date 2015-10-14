@@ -40,8 +40,6 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
     private static final String API_URL_GET = "http://food2fork.com/api/get";
 
-    private ListView listView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +48,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
         Button searchButton = (Button) findViewById(R.id.search_api_button);
         searchButton.setOnClickListener(this);
 
-        listView = getListView();
+        ListView listView = getListView();
 
         // Listview on item click listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,6 +103,11 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
             protected String doInBackground(String... params) {
                 String query = params[0];
 
+                return makeSearchCall(query);
+            }
+
+            private String makeSearchCall(String query) {
+
                 try {
                     URL url = new URL(API_URL_SEARCH + "?key=" + API_KEY + "&q=" + query);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -158,7 +161,9 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                             newRecipe.setRecipeImgUrl(recipeImgUrl);
 
                             // Get recipe ingredients
-                            getRecipeIngredients(recipeId, newRecipe);
+                            String responseOfGetCall = makeGetCall(recipeId);
+                            newRecipe.setIngredients(parseResponseFromGetCall(responseOfGetCall));
+
 
                             recipes.add(newRecipe);
                         }
@@ -169,7 +174,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 }
             }
 
-            private void getRecipeIngredients(String recipeId, Recipe recipe) {
+            private String makeGetCall(String recipeId) {
 
                 try {
                     URL url = new URL(API_URL_GET + "?key=" + API_KEY + "&rId=" + recipeId);
@@ -184,7 +189,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                         bufferedReader.close();
                         String response = stringBuilder.toString();
 
-                        recipe.setIngredients(parseResponseFromGetCall(response));
+                        return response;
                     }
                     finally{
                         urlConnection.disconnect();
@@ -194,6 +199,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                     // TODO: Proper error handling.
                     e.printStackTrace();
                 }
+                return recipeId;
             }
 
             private ArrayList<String> parseResponseFromGetCall(String response) {

@@ -28,12 +28,17 @@ public class Recipe implements Parcelable {
     public String getIngredientsForDisplay() {
         ArrayList<String> ingredientsArray = getIngredients();
 
-        StringBuilder builder = new StringBuilder();
-        for (String ingredient : ingredientsArray) {
-            builder.append("\u2022 ").append(ingredient).append("\n");
+        if (ingredientsArray != null) {
+
+            StringBuilder builder = new StringBuilder();
+            for (String ingredient : ingredientsArray) {
+                builder.append("\u2022 ").append(ingredient).append("\n");
+            }
+
+            return builder.toString();
         }
 
-        return builder.toString();
+        return new String();
     }
 
     public void setIngredients(ArrayList<String> ingredients) {

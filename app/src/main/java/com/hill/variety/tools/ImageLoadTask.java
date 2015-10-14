@@ -23,8 +23,22 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
         this.imageView = imageView;
     }
 
+    public ImageLoadTask(String url) {
+        this.url = url;
+    }
+
     @Override
     protected Bitmap doInBackground(Void... params) {
+        return getMyBitmap();
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap result) {
+        super.onPostExecute(result);
+        imageView.setImageBitmap(result);
+    }
+
+    public Bitmap getMyBitmap() {
         try {
             URL urlConnection = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) urlConnection
@@ -38,12 +52,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    protected void onPostExecute(Bitmap result) {
-        super.onPostExecute(result);
-        imageView.setImageBitmap(result);
     }
 
 }

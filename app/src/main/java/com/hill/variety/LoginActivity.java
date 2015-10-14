@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showNoEmailOrPasswordMessage() {
+    private void showNoEmailOrPasswordMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setMessage(R.string.login_error_message)
                 .setTitle(R.string.login_error_title)
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         return username;
     }
 
-    public String getUserPassword() {
+    private String getUserPassword() {
         String password = passwordEditText.getText().toString();
         password = password.trim();
         return password;
