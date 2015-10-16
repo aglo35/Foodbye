@@ -60,6 +60,7 @@
                 android:layout_below="@+id/passwordField"
                 android:layout_alignLeft="@+id/passwordField"
                 android:layout_alignStart="@+id/passwordField" />
+
         </RelativeLayout>
 
     <RelativeLayout

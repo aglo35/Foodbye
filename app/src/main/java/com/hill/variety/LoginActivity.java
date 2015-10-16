@@ -12,6 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -23,17 +29,29 @@ import com.variety.R;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    // Parse related login fields
     protected EditText usernameEditText;
     protected EditText passwordEditText;
     protected Button loginButton;
 
     protected TextView signUpTextView;
 
+    // Facebook related login fields
+    private LoginButton facebookLoginButton;
+    CallbackManager facebookCallbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.login);
+
+        // Facebook related stuff
+        loginButton = (LoginButton)findViewById(R.id.facebookLoginButton);
+        setFacebookLoginCallbackManager();
+
 
         signUpTextView = (TextView)findViewById(R.id.signupButton);
         usernameEditText = (EditText)findViewById(R.id.emailField);
@@ -66,12 +84,9 @@ public class LoginActivity extends AppCompatActivity {
                         public void done(ParseUser user, ParseException e) {
 //                            setSupportProgressBarIndeterminateVisibility(false);
 
+                            // Successful Parse login
                             if (e == null) {
-                                // Success!
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
+                                proceedToMainSearch();
                             } else {
                                 // Fail
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
@@ -86,6 +101,43 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setFacebookLoginCallbackManager() {
+        facebookCallbackManager = CallbackManager.Factory.create();
+        facebookLoginButton = (LoginButton) findViewById(R.id.facebookLoginButton);
+        facebookLoginButton.registerCallback(facebookCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        proceedToMainSearch();
+//                        loginResult.getAccessToken().getUserId();
+//                        loginResult.getAccessToken().getToken();
+                    }
+
+                    @Override
+                    public void onCancel() {
+//                        "Login attempt canceled."
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+//                        "Login attempt failed."
+                    }
+                });
+    }
+
+    private void proceedToMainSearch() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        facebookCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
