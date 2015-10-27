@@ -23,14 +23,22 @@
         <activity
             android:name="com.hill.variety.SearchRecipesActivity"
             android:label="@string/title_search_recipes_activity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hill.variety.MainActivity" />
         </activity>
         <!-- Single List Item Activity -->
         <activity
             android:label="Recipe"
             android:name="com.hill.variety.SingleRecipeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hill.variety.MainActivity" />
+        </activity>
+        <!-- My Ingredients Activity -->
+        <activity
+            android:label="My Ingredients"
+            android:name="com.hill.variety.MyIngredientsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hill.variety.MainActivity" />
         </activity>
         <!--Login Activity-->
         <activity

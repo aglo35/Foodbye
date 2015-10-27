@@ -42,5 +42,6 @@
     <string name="kcal">Kcal</string>
     <string name="recipe_img">Recipe Image</string>
     <string name="nutrition_button">Nutrition</string>
+    <string name="my_ingredients">My Ingredients</string>
     <!-- END OF single item view elements -->
 </resources>

@@ -114,7 +114,16 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.my_ingredients) {
+            goToMyIngredients();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToMyIngredients() {
+        Intent intent = new Intent(this, MyIngredientsActivity.class);
+        startActivity(intent);
     }
 
     /** Called when the user clicks the Search button */

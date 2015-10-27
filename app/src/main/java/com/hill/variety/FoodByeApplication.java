@@ -2,7 +2,10 @@ package com.hill.variety;
 
 import android.app.Application;
 
+import com.hill.variety.model.Ingredient;
 import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 /**
  *
@@ -17,7 +20,18 @@ public class FoodByeApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Register your parse models
+        ParseObject.registerSubclass(Ingredient.class);
+        // Parse initialization
         Parse.initialize(this, APPLICATION_ID, CLIENT_KEY);
+
+        Ingredient ingredient = new Ingredient("Salt");
+        // Set the current user, assuming a user is signed in
+                ingredient.setOwner(ParseUser.getCurrentUser());
+        // Immediately save the data asynchronously
+                ingredient.saveInBackground();
+        // or for a more robust offline save
+        // todoItem.saveEventually();
 
     }
 }
