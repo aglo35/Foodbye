@@ -43,5 +43,14 @@
     <string name="recipe_img">Recipe Image</string>
     <string name="nutrition_button">Nutrition</string>
     <string name="my_ingredients">My Ingredients</string>
+    <string name="action_new">New Ingredient</string>
+    <string name="title_activity_edit_ingredient">EditIngredientActivity</string>
     <!-- END OF single item view elements -->
+
+    <!-- START OF edit ingredients -->
+    <string name="ingredient_name_hint">Name</string>
+    <string name="save_button">Add</string>
+    <!-- END OF edit ingredients -->
+
+
 </resources>

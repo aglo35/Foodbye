@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.variety" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -22,45 +22,49 @@
         </activity>
         <activity
             android:name="com.hill.variety.SearchRecipesActivity"
-            android:label="@string/title_search_recipes_activity">
+            android:label="@string/title_search_recipes_activity" >
         </activity>
         <!-- Single List Item Activity -->
         <activity
-            android:label="Recipe"
-            android:name="com.hill.variety.SingleRecipeActivity" >
+            android:name="com.hill.variety.SingleRecipeActivity"
+            android:label="Recipe" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hill.variety.MainActivity" />
         </activity>
         <!-- My Ingredients Activity -->
         <activity
-            android:label="My Ingredients"
-            android:name="com.hill.variety.MyIngredientsActivity" >
+            android:name="com.hill.variety.MyIngredientsActivity"
+            android:label="My Ingredients" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hill.variety.MainActivity" />
         </activity>
-        <!--Login Activity-->
+        <!-- Login Activity -->
         <activity
-            android:label="Login"
             android:name="com.hill.variety.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="Login"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
-        <!--Sign Up Activity-->
+        <!-- Sign Up Activity -->
         <activity
-            android:label="Sign Up"
-            android:name="com.hill.variety.SignUpActivity" >
-            <!--Set parent activity to LoginActivity-->
+            android:name="com.hill.variety.SignUpActivity"
+            android:label="Sign Up" >
+
+            <!-- Set parent activity to LoginActivity -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hill.variety.LoginActivity" />
         </activity>
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
 
 </manifest>
