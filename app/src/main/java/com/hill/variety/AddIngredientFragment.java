@@ -3,7 +3,6 @@ package com.hill.variety;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,9 @@ import com.parse.SaveCallback;
 import com.variety.R;
 
 public class AddIngredientFragment extends Fragment {
+
+    private static final String INGREDIENT_SAVED_SUCCESS = "Ingredient added";
+    private static final String INGREDIENT_SAVED_FAILED = "Failed to add ingredient";
 
     private EditText nameAddText;
     private Button saveIngredientButton;
@@ -65,14 +67,16 @@ public class AddIngredientFragment extends Fragment {
                     public void done(com.parse.ParseException e) {
                         if (e == null) {
                             // Saved successfully.
-                            Toast.makeText(getActivity(), "Ingredient added", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), INGREDIENT_SAVED_SUCCESS, Toast.LENGTH_SHORT).show();
 
                             fragmentTransaction = getFragmentManager().beginTransaction();
                             MyIngredientsActivity.initializeIngredientListFragment(fragmentTransaction);
+
+                            handleAddIngredientsFrame();
                         } else {
                             // The save failed.
-                            Toast.makeText(getActivity(), "Failed to add ingredient", Toast.LENGTH_SHORT).show();
-                            Log.d(getClass().getSimpleName(), "User update error: " + e);
+                            Toast.makeText(getActivity(), INGREDIENT_SAVED_FAILED, Toast.LENGTH_SHORT).show();
+//                            Log.d(getClass().getSimpleName(), "User update error: " + e);
                         }
                     }
                 });
@@ -81,4 +85,31 @@ public class AddIngredientFragment extends Fragment {
             }
         }
     }
+
+    /**
+     * Handles add ingredients frame after adding an ingredient.
+     * Initializes fragment if needed and hides it if it's not hidden.
+     */
+    private void handleAddIngredientsFrame() {
+        Fragment addIngredientsFragment = getFragmentManager().findFragmentById(R.id.add_ingredients_frame);
+        fragmentTransaction = getFragmentManager().beginTransaction();
+
+        if (addIngredientsFragment == null) {
+            addIngredientsFragment = new AddIngredientFragment();
+
+            fragmentTransaction.replace(R.id.add_ingredients_frame, addIngredientsFragment);
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        } else {
+            if (addIngredientsFragment.isHidden()) {
+                fragmentTransaction.show(addIngredientsFragment);
+            } else {
+                fragmentTransaction.hide(addIngredientsFragment);
+            }
+        }
+
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
 }
