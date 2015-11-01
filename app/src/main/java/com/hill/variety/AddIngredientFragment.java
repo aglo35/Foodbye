@@ -53,10 +53,10 @@ public class AddIngredientFragment extends Fragment {
 
         if (!ingredientName.isEmpty()) {
 
-            // Check if post is being created or edited
+            // Check if ingredient is being created
 
             if (ingredient == null) {
-                // create new post
+                // create new ingredient
 
                 ingredient = new Ingredient(ingredientName);
                 // Set the current user, assuming a user is signed in

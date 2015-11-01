@@ -5,12 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".MyIngredientsActivity" >
 
-    <ListView
-        android:id="@android:id/list"
+    <view
+        class="com.hill.variety.BackgroundContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-    </ListView>
+        android:layout_height="match_parent"
+        android:id="@+id/listViewBackground">
+
+        <ListView
+            android:id="@android:id/list"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </view>
 
 </RelativeLayout>
