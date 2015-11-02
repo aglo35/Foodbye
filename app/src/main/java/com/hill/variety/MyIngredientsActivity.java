@@ -10,12 +10,11 @@ import android.view.MenuItem;
 import com.variety.R;
 
 /**
+ * Main activity responsible for "My Ingredients" page.
  *
- * Created by allar on 25.10.15.
+ * Created by Allar on 25.10.15.
  */
 public class MyIngredientsActivity extends AppCompatActivity {
-
-    private FragmentTransaction fragmentTransaction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,13 +22,15 @@ public class MyIngredientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_my_ingredients_view);
 
-        fragmentTransaction = getFragmentManager().beginTransaction();
+        // Initialize fragment containing all ingredients
+        // associated with the current user.
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         initializeIngredientListFragment(fragmentTransaction);
     }
 
     public static void initializeIngredientListFragment(FragmentTransaction fragmentTransaction) {
         Fragment fragment = new IngredientListFragment();
-        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.replace(R.id.ingredients_list_frame, fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -56,6 +57,7 @@ public class MyIngredientsActivity extends AppCompatActivity {
                 break;
             }
             case R.id.action_settings: {
+                // TODO:
                 // Do something when user selects Settings from Action Bar overlay
                 break;
             }

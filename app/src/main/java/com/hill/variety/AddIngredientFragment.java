@@ -21,12 +21,7 @@ public class AddIngredientFragment extends Fragment {
     private static final String INGREDIENT_SAVED_FAILED = "Failed to add ingredient";
 
     private EditText nameAddText;
-    private Button saveIngredientButton;
-    private String ingredientName;
     private Ingredient ingredient;
-
-    private FragmentTransaction fragmentTransaction;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +29,7 @@ public class AddIngredientFragment extends Fragment {
 
         nameAddText = (EditText) view.findViewById(R.id.ingredientName);
 
-        saveIngredientButton = (Button) view.findViewById(R.id.saveIngredient);
+        Button saveIngredientButton = (Button) view.findViewById(R.id.saveIngredient);
         saveIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +42,7 @@ public class AddIngredientFragment extends Fragment {
 
     private void saveIngredient() {
 
-        ingredientName = nameAddText.getText().toString();
+        String ingredientName = nameAddText.getText().toString();
 
         ingredientName = ingredientName.trim();
 
@@ -69,15 +64,19 @@ public class AddIngredientFragment extends Fragment {
                             // Saved successfully.
                             Toast.makeText(getActivity(), INGREDIENT_SAVED_SUCCESS, Toast.LENGTH_SHORT).show();
 
-                            fragmentTransaction = getFragmentManager().beginTransaction();
-                            MyIngredientsActivity.initializeIngredientListFragment(fragmentTransaction);
+                            FragmentTransaction listIngredientFragTrans = getFragmentManager().beginTransaction();
+                            MyIngredientsActivity.initializeIngredientListFragment(listIngredientFragTrans);
 
-                            handleAddIngredientsFrame();
+                            FragmentTransaction addIngredientFragTrans = getFragmentManager().beginTransaction();
+                            handleAddIngredientsFrame(addIngredientFragTrans);
                         } else {
                             // The save failed.
                             Toast.makeText(getActivity(), INGREDIENT_SAVED_FAILED, Toast.LENGTH_SHORT).show();
 //                            Log.d(getClass().getSimpleName(), "User update error: " + e);
                         }
+
+                        // Clear ingredient
+                        ingredient = null;
                     }
                 });
                 // or for a more robust offline save
@@ -90,9 +89,8 @@ public class AddIngredientFragment extends Fragment {
      * Handles add ingredients frame after adding an ingredient.
      * Initializes fragment if needed and hides it if it's not hidden.
      */
-    private void handleAddIngredientsFrame() {
+    private void handleAddIngredientsFrame(FragmentTransaction fragmentTransaction) {
         Fragment addIngredientsFragment = getFragmentManager().findFragmentById(R.id.add_ingredients_frame);
-        fragmentTransaction = getFragmentManager().beginTransaction();
 
         if (addIngredientsFragment == null) {
             addIngredientsFragment = new AddIngredientFragment();
