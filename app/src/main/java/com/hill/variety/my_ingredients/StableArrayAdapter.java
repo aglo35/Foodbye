@@ -1,4 +1,4 @@
-package com.hill.variety;
+package com.hill.variety.my_ingredients;
 
 /*
  * Copyright (C) 2013 The Android Open Source Project

@@ -1,4 +1,4 @@
-package com.hill.variety;
+package com.hill.variety.my_ingredients;
 
 import android.annotation.TargetApi;
 import android.app.ListFragment;

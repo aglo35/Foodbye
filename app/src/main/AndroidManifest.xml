@@ -34,7 +34,7 @@
         </activity>
         <!-- My Ingredients Activity -->
         <activity
-            android:name="com.hill.variety.MyIngredientsActivity"
+            android:name="com.hill.variety.my_ingredients.MyIngredientsActivity"
             android:label="My Ingredients" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

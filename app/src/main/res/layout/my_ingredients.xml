@@ -6,7 +6,7 @@
     tools:context=".MyIngredientsActivity" >
 
     <view
-        class="com.hill.variety.BackgroundContainer"
+        class="com.hill.variety.my_ingredients.BackgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listViewBackground">

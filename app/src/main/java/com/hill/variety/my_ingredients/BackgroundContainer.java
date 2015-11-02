@@ -1,4 +1,4 @@
-package com.hill.variety;
+package com.hill.variety.my_ingredients;
 
 /*
  * Copyright (C) 2013 The Android Open Source Project
@@ -19,6 +19,7 @@ package com.hill.variety;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -28,7 +29,7 @@ public class BackgroundContainer extends FrameLayout {
 
     boolean mShowing = false;
     Drawable mShadowedBackground;
-    int mOpenAreaTop, mOpenAreaBottom, mOpenAreaHeight;
+    int mOpenAreaTop, mOpenAreaHeight;
     boolean mUpdateBounds = false;
 
     public BackgroundContainer(Context context) {
@@ -48,7 +49,7 @@ public class BackgroundContainer extends FrameLayout {
 
     private void init() {
         mShadowedBackground =
-                getContext().getResources().getDrawable(R.drawable.shadowed_background);
+                ContextCompat.getDrawable(getContext(), R.drawable.shadowed_background);
     }
 
     public void showBackground(int top, int bottom) {
