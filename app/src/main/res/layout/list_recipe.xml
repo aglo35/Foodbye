@@ -5,49 +5,6 @@
     android:padding="10dp"
     >
 
-    <TextView
-        android:id="@+id/recipe_title"
-        android:layout_alignBaseline="@+id/recipe_img"
-        android:layout_toRightOf="@+id/recipe_img"
-        android:layout_toEndOf="@+id/recipe_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="6dp"
-        android:paddingEnd="6dp"
-        android:text="Recipe"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/recipeId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/recipe_title"
-        android:layout_toRightOf="@+id/recipe_title"
-        android:layout_toEndOf="@+id/recipe_title"
-        android:paddingRight="6dp"
-        android:paddingLeft="6dp"
-        android:text=" Recipe id: " />
-
-    <TextView
-        android:id="@+id/social_rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/recipe_title"
-        android:layout_toRightOf="@+id/recipeId"
-        android:layout_toEndOf="@+id/recipeId"
-        android:text="Recipe ID"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recipe_title"
-        android:text="Ingredients"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
     <ImageView
         android:layout_alignParentStart="true"
@@ -57,5 +14,59 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:contentDescription="@string/recipe_img" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/recipe_img"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredients"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/recipe_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="6dp"
+        android:paddingEnd="6dp"
+        android:text="@string/recipe"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/recipe_img"
+        android:layout_toRightOf="@+id/recipe_img"
+        android:layout_toEndOf="@+id/recipe_img" />
+
+    <TextView
+        android:id="@+id/social_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recipe_id"
+        android:visibility="invisible"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/recipe_title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/recipeId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
+        android:text="@string/recipe_id"
+        android:visibility="invisible"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/social_rank"
+        android:layout_toStartOf="@+id/social_rank" />
 
 </RelativeLayout>
