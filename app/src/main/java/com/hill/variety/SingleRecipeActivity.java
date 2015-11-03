@@ -47,8 +47,7 @@ public class SingleRecipeActivity extends AppCompatActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredients);
 
-        if (arrayAdapter != null) {
-
+        if (!arrayAdapter.isEmpty()) {
             lblIngredients.setAdapter(arrayAdapter);
         }
 
