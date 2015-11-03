@@ -41,7 +41,7 @@
     <string name="servings">Servings</string>
     <string name="kcal">Kcal</string>
     <string name="recipe_img">Recipe Image</string>
-    <string name="nutrition_button">Nutrition</string>
+    <string name="nutrition_search_button">Nutrition</string>
     <string name="my_ingredients">My Ingredients</string>
     <string name="action_new">New Ingredient</string>
     <string name="title_activity_edit_ingredient">EditIngredientActivity</string>
@@ -52,5 +52,8 @@
     <string name="save_button">Add</string>
     <!-- END OF edit ingredients -->
 
+    <string name="ingredients">Ingredients</string>
+    <string name="recipe">Recipe</string>
+    <string name="recipe_id">Recipe id</string>
 
 </resources>
