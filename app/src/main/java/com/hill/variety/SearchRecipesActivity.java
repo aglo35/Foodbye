@@ -67,6 +67,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
                 intent.putExtra(TAG_SOCIAL_RANK, recipe.getSocial_rank());
                 intent.putExtra(TAG_RECIPE_ID, recipe.getRecipe_id());
                 intent.putExtra(TAG_RECIPE_IMG_URL, recipe.getRecipeImgUrl());
+                intent.putStringArrayListExtra(TAG_INGREDIENTS, recipe.getIngredients());
 
                 startActivity(intent);
             }
