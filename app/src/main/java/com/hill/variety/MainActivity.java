@@ -14,6 +14,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.hill.variety.model.Recipe;
 import com.hill.variety.my_ingredients.MyIngredientsActivity;
+import com.hill.variety.search_recipes.SearchRecipesActivity;
 import com.parse.ParseUser;
 import com.variety.R;
 

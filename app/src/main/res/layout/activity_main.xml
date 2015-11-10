@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -18,7 +18,9 @@
             android:layout_height="wrap_content"
             android:text="@string/button_search"
             android:onClick="searchRecipe"
-            android:id="@+id/search_api_button" />
+            android:id="@+id/search_api_button"
+            android:background="@drawable/blue_button"
+            style="@style/Button"/>
     </LinearLayout>
 
     <RelativeLayout

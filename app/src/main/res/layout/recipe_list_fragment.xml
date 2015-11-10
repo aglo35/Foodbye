@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyIngredientsActivity">
+    tools:context=".MyIngredientsActivity" >
 
     <view
-        class="com.hill.variety.my_ingredients.BackgroundContainer"
+        class="com.hill.variety.recipe_list_fragment.BackgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listViewBackground">
+        android:id="@+id/recipeListViewBackground">
 
         <ListView
             android:id="@android:id/list"

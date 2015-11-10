@@ -1,5 +1,7 @@
-package com.hill.variety;
+package com.hill.variety.search_recipes;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.hill.variety.MainActivity;
+import com.hill.variety.RecipeArrayAdapter;
+import com.hill.variety.SingleRecipeActivity;
+import com.hill.variety.my_ingredients.IngredientListFragment;
 import com.variety.R;
 import com.hill.variety.model.Recipe;
 
@@ -39,6 +45,7 @@ public class SearchRecipesActivity extends ListActivity implements View.OnClickL
     private static final String API_URL_SEARCH = "http://food2fork.com/api/search";
     private static final String API_KEY = "d7d9a961ed44ce2f707a056eb3d29c38";
     private static final String API_URL_GET = "http://food2fork.com/api/get";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
