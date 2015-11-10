@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Recipe> recipes;
 
+    public double sum(double a, double b){
+        return a + b;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

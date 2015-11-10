@@ -2,12 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
+
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.variety"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -17,7 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { java.srcDirs = ['src/main/java', 'src/test/java'] } }
 }
 
 dependencies {
@@ -29,5 +30,8 @@ dependencies {
 //    Parse dependencies, also ignore adding specific android version suggestion
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
-    compile 'junit:junit:4.12'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:2.2.0'
+    testCompile 'org.robolectric:robolectric:3.0'
 }
