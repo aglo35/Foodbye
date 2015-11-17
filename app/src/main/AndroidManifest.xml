@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hill.variety.search_recipes.SearchRecipesActivity"
+            android:name="com.hill.variety.SearchRecipesActivity"
             android:label="@string/title_search_recipes_activity" >
         </activity>
         <!-- Single List Item Activity -->

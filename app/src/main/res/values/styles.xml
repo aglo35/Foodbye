@@ -8,7 +8,7 @@
         <item name="colorControlHighlight">#5896ff</item>
     </style>
     <style name="Button">
-        <item name="android:alpha">0.8</item>
+        <item name="android:alpha">0.95</item>
         <item name="android:textColor">#fff</item>
        <item name="android:textAllCaps">false</item>
        </style>
