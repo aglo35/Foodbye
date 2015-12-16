@@ -5,6 +5,8 @@ import com.variety.BuildConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -14,16 +16,11 @@ import static org.junit.Assert.*;
  *
  * Created by Allar on 7.11.15.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@RunWith(MockitoJUnitRunner.class)
 public class MainActivityTest {
 
+    @InjectMocks
     private MainActivity mainActivity;
-
-    @Before
-    public void setUp() throws Exception {
-        mainActivity = new MainActivity();
-    }
 
     @Test
     public void testSum() throws Exception {

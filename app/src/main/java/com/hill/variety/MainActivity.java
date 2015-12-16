@@ -14,6 +14,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.hill.variety.model.Recipe;
 import com.hill.variety.my_ingredients.MyIngredientsActivity;
+import com.hill.variety.util.FacebookUtil;
+import com.hill.variety.util.ParseUtil;
 import com.parse.ParseUser;
 import com.variety.R;
 
@@ -53,25 +55,14 @@ public class MainActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         Intent intent = getIntent();
+
         if (intent != null) {
             String guest_login = intent.getStringExtra(MainActivity.GUEST_LOGIN);
             if (GUEST_LOGIN.equals(guest_login)) {
                 setContentView(R.layout.activity_main);
-            } else {
-                setContentView(R.layout.activity_main);
-
-                // Get Parse user token
-                ParseUser currentUser = ParseUser.getCurrentUser();
-
-                // Get Facebook user token
-                boolean facebookLoggedIn = isFacebookLoggedIn();
-
-                // Check if Parse or Facebook user token is present
-                if (currentUser == null && !facebookLoggedIn) {
-                    loadLoginView();
-                }
-
-
+            } else if (isAuthenticated()) {
+//                setContentView(R.layout.activity_main);
+                loadLoginView();
             }
         }
 
@@ -79,8 +70,35 @@ public class MainActivity extends AppCompatActivity {
         recipes = new ArrayList<>();
     }
 
+    private ParseUtil parseUtil;
+
+    public boolean isAuthenticated() {
+
+        // TODO move to onCreate
+        if (parseUtil == null) {
+            parseUtil = new ParseUtil();
+        }
+
+        // Get Parse user token
+        ParseUser currentUser = parseUtil.getCurrentUser();
+
+        // Get Facebook user token
+        boolean facebookLoggedIn = isFacebookLoggedIn();
+
+        // Check if Parse or Facebook user token is present
+        if (currentUser == null && !facebookLoggedIn) {
+            return false;
+        }
+        return true;
+    }
+
+    private FacebookUtil facebookUtil;
     private boolean isFacebookLoggedIn() {
-        return (AccessToken.getCurrentAccessToken() != null);
+        // TODO move to onCreate
+        if (facebookUtil == null) {
+            facebookUtil = new FacebookUtil();
+        }
+        return facebookUtil.isLoggedIn();
     }
 
     private void loadLoginView() {
