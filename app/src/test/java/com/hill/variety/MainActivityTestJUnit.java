@@ -46,6 +46,13 @@ public class MainActivityTestJUnit {
     }
 
     @Test
+    public void testIsAuthenticatedFalse() {
+        when(facebookUtil.isLoggedIn()).thenReturn(false);
+        boolean result = activity.isAuthenticated();
+        assertFalse(result);
+    }
+
+    @Test
     public void onOptionsItemSelectedTest() {
         when(item.getItemId()).thenReturn(R.id.action_settings);
 
